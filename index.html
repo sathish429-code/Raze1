@@ -1,546 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raze Academy | Trade With Precision</title>
+    <title>Raze Academy | Consistent Trader Blueprint</title>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        /* CSS Variables */
-        :root {
-            --bg-color: #0a0a0a;
-            --text-color: #ffffff;
-            --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --gold-glow: rgba(212, 175, 55, 0.4);
-            --dark-gray: #1a1a1a;
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (FontAwesome via CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* Reset & Base */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            background-image: radial-gradient(circle at 50% 0%, #1e1a12 0%, #0a0a0a 70%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Custom Cursor */
-        .cursor-glow {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            transition: width 0.3s, height 0.3s;
-            mix-blend-mode: screen;
-            opacity: 0.5;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Typography */
-        h1,
-        h2,
-        h3 {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.2;
-        }
-
-        .gold-text {
-            color: var(--gold);
-            background: linear-gradient(to right, var(--gold-light), var(--gold));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navbar / Header */
-        header {
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            margin-bottom: 20px;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: #aaaaaa;
-            margin-bottom: 40px;
-            max-width: 600px;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 16px 40px;
-            background: transparent;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: 1px solid var(--gold);
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gold);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-
-        .btn:hover {
-            color: var(--bg-color);
-            box-shadow: 0 0 30px var(--gold-glow);
-            transform: translateY(-3px);
-            border-color: transparent;
-        }
-
-        .btn:hover::before {
-            left: 0;
-        }
-
-        /* Course Section */
-        .course-section {
-            background: linear-gradient(180deg, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.6) 50%, rgba(26, 26, 26, 0) 100%);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 50px;
-        }
-
-        .bullet-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .bullet-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 20px 30px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bullet-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            opacity: 0;
-            transition: 0.3s ease;
-            pointer-events: none;
-        }
-
-        .bullet-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .bullet-item:hover::after {
-            opacity: 0.5;
-            box-shadow: inset 0 0 20px var(--gold-glow);
-        }
-
-        .bullet-icon {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-right: 15px;
-        }
-
-        .bullet-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            padding: 40px 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.4s ease;
-        }
-
-        .feature-card:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--gold-glow);
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            text-align: center;
-        }
-
-        .contact-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .contact-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 30px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            z-index: -1;
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            border-color: var(--gold);
-            box-shadow: 0 5px 20px var(--gold-glow);
-            transform: translateY(-3px);
-        }
-
-        .contact-btn:hover::before {
-            opacity: 1;
-        }
-
-        .contact-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--gold);
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .footer-logo {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .footer-tagline {
-            color: var(--gold);
-            font-style: italic;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .contact-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-        }
-    </style>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <div class="container">
-        <header>
-            <a href="#" class="logo">RAZE <span class="gold-text">•</span> ACADEMY</a>
-        </header>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
-        <section class="hero visible" id="hero">
-            <h1><span class="gold-text">Trade</span> With Precision.<br>Not Guesswork.</h1>
-            <p>Build consistency using Smart Money Concepts</p>
-            <a href="#contact" class="btn">ENROLL NOW</a>
-        </section>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">RAZE</span> ACADEMY
+        </div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#curriculum">Curriculum</a>
+            <a href="#bonuses">Bonuses</a>
+            <a href="#contact" class="btn btn-outline">Join Now</a>
+        </div>
+    </nav>
 
-        <section class="course-section" id="course">
-            <h2 class="section-title">The <span class="gold-text">Raze</span> Consistency System</h2>
-            <div class="bullet-list">
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">Market Structure (BOS, CHoCH)</span>
-                </div>
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">Liquidity & Stop Hunt</span>
-                </div>
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">Order Blocks & FVG</span>
-                </div>
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">3 Step Sniper Entry Model</span>
-                </div>
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">Risk Management</span>
-                </div>
-                <div class="bullet-item">
-                    <span class="bullet-icon">◆</span>
-                    <span class="bullet-text">Psychology</span>
-                </div>
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge reveal">🔥 SMC Trading Mastery</div>
+            <h1 class="hero-title reveal delay-1">RAZE Blueprint</h1>
+            <h1 class="hero-subtitle gold-text reveal delay-2">From Zero to Consistent Trader</h1>
+            <p class="hero-desc reveal delay-3">
+                Stop gambling and start trading like institutions. Master Smart Money Concepts, build an iron-clad mindset, and become a consistently profitable trader.
+            </p>
+            <div class="cta-group reveal delay-4">
+                <a href="#curriculum" class="btn btn-primary">Explore Curriculum <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="#contact" class="btn btn-secondary">Contact Instructor</a>
             </div>
-        </section>
+        </div>
+        
+        <!-- Animated Background Elements -->
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </header>
 
-        <section class="features" id="features">
-            <h2 class="section-title">Why <span class="gold-text">Choose</span> Us</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎓</div>
-                    <div class="feature-title">Beginner Friendly</div>
-                    <p style="color:#aaa; font-size:0.9rem;">Start from scratch and build a solid foundation.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <div class="feature-title">Simple Strategy</div>
-                    <p style="color:#aaa; font-size:0.9rem;">No complex indicators. Pure price action logic.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <div class="feature-title">Real Chart Examples</div>
-                    <p style="color:#aaa; font-size:0.9rem;">Learn through live market simulations and case studies.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
-                    <div class="feature-title">Step-by-step Learning</div>
-                    <p style="color:#aaa; font-size:0.9rem;">Structured curriculum guiding you to consistency.</p>
-                </div>
+    <!-- Instructor Section -->
+    <section class="about-section dark-glass" id="about">
+        <div class="container text-center reveal">
+            <h2 class="section-title">Instructor Identity</h2>
+            <div class="instructor-card glass-card">
+                <div class="instructor-icon"><i class="fa-solid fa-user-ninja"></i></div>
+                <h3 class="gold-text">Raze</h3>
+                <p>A calm, emotionless, and highly disciplined trader who focuses on precision, patience, and execution. The goal is not just learning — but building a disciplined, profitable trading mindset.</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="contact-section" id="contact">
-            <h2 class="section-title">Ready To <span class="gold-text">Start?</span></h2>
-            <p style="color: #aaaaaa; font-size: 1.1rem;">Reach out to us to get started with your trading journey.</p>
+    <!-- Target Audience -->
+    <section class="target-section container">
+        <h2 class="section-title text-center reveal">Who is this for?</h2>
+        <div class="grid-4">
+            <div class="card reveal delay-1">
+                <i class="fa-solid fa-seedling card-icon gold-text"></i>
+                <p>Beginners with zero knowledge</p>
+            </div>
+            <div class="card reveal delay-2">
+                <i class="fa-solid fa-chart-line card-icon gold-text"></i>
+                <p>Traders struggling with losses</p>
+            </div>
+            <div class="card reveal delay-3">
+                <i class="fa-solid fa-brain card-icon gold-text"></i>
+                <p>People stuck in emotional trading</p>
+            </div>
+            <div class="card reveal delay-4">
+                <i class="fa-solid fa-gem card-icon gold-text"></i>
+                <p>Anyone who wants to master SMC trading</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="contact-buttons">
-                <a href="tel:+918438253635" class="contact-btn">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
-                    </svg>
-                    Call Now
+    <!-- Course Modules -->
+    <section class="curriculum-section" id="curriculum">
+        <div class="container">
+            <h2 class="section-title text-center reveal">Course Curriculum</h2>
+            <div class="modules-timeline">
+                
+                <div class="module-card reveal">
+                    <div class="module-number">01</div>
+                    <div class="module-content">
+                        <h3>🟢 Trading Foundations</h3>
+                        <ul>
+                            <li>What is trading? (Reality vs Fake expectations)</li>
+                            <li>Market basics (Forex, Indices, Crypto)</li>
+                            <li>Types of traders</li>
+                            <li>Risk & Money management basics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">02</div>
+                    <div class="module-content">
+                        <h3>🔵 Market Structure (Core)</h3>
+                        <ul>
+                            <li>Higher High, Higher Low & Lower High, Lower Low</li>
+                            <li>Trend identification</li>
+                            <li>Break of Structure (BOS)</li>
+                            <li>Change of Character (CHOCH)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">03</div>
+                    <div class="module-content">
+                        <h3>🟣 Liquidity Concepts</h3>
+                        <ul>
+                            <li>What is liquidity?</li>
+                            <li>Buy-side & Sell-side liquidity</li>
+                            <li>Liquidity grabs & stop hunts</li>
+                            <li>Equal highs & lows</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">04</div>
+                    <div class="module-content">
+                        <h3>🟡 Smart Money Concepts (SMC)</h3>
+                        <ul>
+                            <li>Order Blocks</li>
+                            <li>Fair Value Gaps (FVG)</li>
+                            <li>Imbalances</li>
+                            <li>Institutional zones</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">05</div>
+                    <div class="module-content">
+                        <h3>🔴 Entry Models (Strategy)</h3>
+                        <ul>
+                            <li><strong>Raze Entry Model 🔥</strong></li>
+                            <li>Confluence trading & Multi-timeframe analysis</li>
+                            <li>Confirmation techniques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">06</div>
+                    <div class="module-content">
+                        <h3>⚫ Risk Management</h3>
+                        <ul>
+                            <li>Risk per trade (1–2%)</li>
+                            <li>Risk to Reward (RRR) & Position sizing</li>
+                            <li>Protecting capital</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">07</div>
+                    <div class="module-content">
+                        <h3>🧘 Trading Psychology</h3>
+                        <ul>
+                            <li>Controlling emotions, discipline & patience</li>
+                            <li>Overtrading problem</li>
+                            <li>Building trader mindset</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card reveal">
+                    <div class="module-number">08</div>
+                    <div class="module-content">
+                        <h3>📊 Live Market Application</h3>
+                        <ul>
+                            <li>Real chart breakdowns & Trade examples</li>
+                            <li>Backtesting guidance</li>
+                            <li>Journaling system</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Outcomes & Bonuses -->
+    <section class="bonuses-section dark-glass container" id="bonuses">
+        <div class="grid-2">
+            <div class="outcome-box reveal">
+                <h2 class="gold-text">💰 Course Outcome</h2>
+                <ul class="check-list">
+                    <li><i class="fa-solid fa-check text-green"></i> Understand market structure clearly</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Identify high-probability setups</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Execute trades with confidence</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Manage risk like a professional</li>
+                    <li><i class="fa-solid fa-check text-green"></i> Develop a consistent trading system</li>
+                </ul>
+            </div>
+            
+            <div class="bonuses-box reveal delay-2">
+                <h2 class="gold-text">🎁 Exclusive Bonuses</h2>
+                <ul class="star-list">
+                    <li><i class="fa-solid fa-star gold-text"></i> Trading Journal Template</li>
+                    <li><i class="fa-solid fa-star gold-text"></i> Raze Strategy PDF</li>
+                    <li><i class="fa-solid fa-star gold-text"></i> Checklist before every trade</li>
+                    <li><i class="fa-solid fa-star gold-text"></i> Lifetime updates</li>
+                </ul>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer class="contact-section" id="contact">
+        <div class="container text-center">
+            <h2 class="section-title reveal">Ready to Transform Your Trading?</h2>
+            <p class="reveal delay-1 mb-40">Connect with Raze Academy directly through your preferred platform. Serious learners only.</p>
+            
+            <div class="contact-buttons reveal delay-2">
+                <!-- Phone Button -->
+                <a href="tel:+918438253635" class="contact-btn phone-btn pulse-anim">
+                    <div class="icon-wrapper"><i class="fa-solid fa-phone"></i></div>
+                    <div class="btn-text">
+                        <span>Direct Call</span>
+                        <strong>+91 8438253635</strong>
+                    </div>
                 </a>
 
-                <a href="https://wa.me/918438253635" target="_blank" class="contact-btn">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                    </svg>
-                    Chat on WhatsApp
+                <!-- WhatsApp Button -->
+                <a href="https://wa.me/918438253635?text=Hello%20Raze%20Academy!%20I'm%20interested%20in%20the%20Consistent%20Trader%20Blueprint." target="_blank" class="contact-btn whatsapp-btn pulse-anim">
+                    <div class="icon-wrapper"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="btn-text">
+                        <span>Message on</span>
+                        <strong>WhatsApp</strong>
+                    </div>
                 </a>
 
-                <a href="mailto:raze3.ex@gmail.com" class="contact-btn">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                    Send Email
+                <!-- Email Button -->
+                <a href="mailto:raze3.exe@gmail.com?subject=Inquiry:%20RAZE%20Blueprint%20Course" class="contact-btn email-btn pulse-anim">
+                    <div class="icon-wrapper"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="btn-text">
+                        <span>Email Us</span>
+                        <strong>raze3.exe@gmail.com</strong>
+                    </div>
                 </a>
             </div>
-        </section>
+            
+            <div class="copyright mt-60 reveal delay-3">
+                <p>&copy; 2026 Raze Academy. All Rights Reserved. Master the Markets.</p>
+            </div>
+        </div>
+    </footer>
 
-        <footer>
-            <div class="footer-logo">RAZE <span class="gold-text">•</span> ACADEMY</div>
-            <div class="footer-tagline">"Wait. Confirm. Enter."</div>
-        </footer>
-    </div>
-
-    <script>
-        // Custom Cursor Glow
-        const cursorGlow = document.getElementById('cursorGlow');
-        let cursorX = 0, cursorY = 0;
-        let mouseX = 0, mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.1;
-            cursorY += (mouseY - cursorY) * 0.1;
-            cursorGlow.style.left = cursorX + 'px';
-            cursorGlow.style.top = cursorY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Reveal animations on scroll
-        const sections = document.querySelectorAll('section:not(.hero)');
-
-        const observerOptions = {
-            root: null,
-            threshold: 0.15,
-            rootMargin: "0px"
-        };
-
-        const observer = new IntersectionObserver(function (entries, observer) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // Hover effects on interactive elements to boost cursor glow
-        const interactives = document.querySelectorAll('a, .feature-card, .bullet-item');
-        interactives.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorGlow.style.opacity = '0.8';
-                cursorGlow.style.width = '500px';
-                cursorGlow.style.height = '500px';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorGlow.style.opacity = '0.5';
-                cursorGlow.style.width = '400px';
-                cursorGlow.style.height = '400px';
-            });
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
-
 </html>
